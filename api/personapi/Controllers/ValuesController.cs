@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using personapi.Models;
 
 namespace personapi.Controllers
 {
@@ -41,5 +43,22 @@ namespace personapi.Controllers
         public void Delete(int id)
         {
         }
+
+        // GET api/values/getstates
+        [HttpGet("GetStates")]
+        public ActionResult<IEnumerable<States>> GetStates()
+        {
+            PersonContext _context = new PersonContext();
+            return _context.States.FromSql("uspStatesList").ToList();
+        }
+
+        // GET api/values/getperson
+        [HttpGet("GetPerson")]
+        public ActionResult<IEnumerable<Person>> GetPerson()
+        {
+            PersonContext _context = new PersonContext();
+            return _context.Person.FromSql("uspPersonSearch").ToList();
+        }
+
     }
 }
